@@ -6,8 +6,8 @@ logging.basicConfig(level=logging.INFO, format="[%(asctime)s] %(message)s")
 
 list_of_files = [
     ".github/workflows/.gitkeep",
-    "src/__init__py",
-    "src/components/__init__py",
+    "src/__init__.py",
+    "src/components/__init__.py",
     "src/components/data_ingestion.py",
     "src/components/data_transformation.py",
     "src/components/model_trainer.py",
@@ -21,14 +21,13 @@ list_of_files = [
     "src/logger/logging.py",
     "src/exception/exception.py",
     "tests/units/__init__.py",
-    "tests/units/__init__",
     "tests/integration/__init__.py",
     "init_setup.sh",
     "requirements.txt",
     "requirements_devs.txt",
     "setup.py",
     "setup.cfg",
-    "pyprohject.toml",
+    "pyproject.toml",
     "tox.ini",
     "expirement/expirements.ipynb"
 ]
