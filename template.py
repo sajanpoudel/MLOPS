@@ -1,6 +1,9 @@
 import os
 from pathlib import Path
 import logging
+
+logging.basicConfig(level=logging.INFO, format="[%(asctime)s] %(message)s")
+
 list_of_files = [
     ".github/workflows/.gitkeep",
     "src/__init__py",
@@ -9,7 +12,7 @@ list_of_files = [
     "src/components/data_transformation.py",
     "src/components/model_trainer.py",
     "src/components/model_evaluation.py",
-    
+
     "src/pipeline/__init__.py",
     "src/pipeline/training_pipeline.py",
     "src/pipeline/prediction_pipeline.py",
@@ -18,7 +21,7 @@ list_of_files = [
     "src/logger/logging.py",
     "src/exception/exception.py",
     "tests/units/__init__.py",
-     "tests/units/__init__",
+    "tests/units/__init__",
     "tests/integration/__init__.py",
     "init_setup.sh",
     "requirements.txt",
@@ -28,8 +31,6 @@ list_of_files = [
     "pyprohject.toml",
     "tox.ini",
     "expirement/expirements.ipynb"
-    
-    
 ]
 
 for filepath in list_of_files:
@@ -37,8 +38,10 @@ for filepath in list_of_files:
     filedir, filename = os.path.split(filepath)
     if filedir != "":
         os.makedirs(filedir, exist_ok=True)
-        logging.info("Creating directory: (filedir) for file: (filebame)")
-    if(not os.path.exists(filepath) or (os.path.getsize(filepath) == 0)):
-        with open(filepath , "w") as f:
+        logging.info(f"Creating directory: {filedir} for file: {filename}")
+    if not os.path.exists(filepath) or os.path.getsize(filepath) == 0:
+        with open(filepath, "w") as f:
             pass  # create an empty file
-    
+        logging.info(f"Created empty file: {filepath}")
+    else:
+        logging.info(f"{filename} already exists")
