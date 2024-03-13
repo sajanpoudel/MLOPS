@@ -14,3 +14,9 @@ def _check_lengths(actual, predicted):
         raise ValueError("actual and predicted must have the same length")
     if len(actual) == 0:
         raise ValueError("at least one value is needed")
+
+
+def root_mean_squared_error(actual, predicted):
+    """Square root of the average squared difference."""
+    _check_lengths(actual, predicted)
+    return math.sqrt(sum((a - p) ** 2 for a, p in zip(actual, predicted)) / len(actual))
