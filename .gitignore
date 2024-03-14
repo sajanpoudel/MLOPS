@@ -1,0 +1,7 @@
+logs/
+__pycache__/
+*.pyc
+.tox/
+*.egg-info/
+.pytest_cache/
+artifacts/
