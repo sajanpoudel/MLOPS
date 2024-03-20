@@ -31,3 +31,12 @@ def r2_score(actual, predicted):
         return 1.0 if all(a == p for a, p in zip(actual, predicted)) else 0.0
     residual = sum((a - p) ** 2 for a, p in zip(actual, predicted))
     return 1 - residual / total
+
+
+def evaluate(actual, predicted):
+    """All metrics as a dictionary."""
+    return {
+        "mae": mean_absolute_error(actual, predicted),
+        "rmse": root_mean_squared_error(actual, predicted),
+        "r2": r2_score(actual, predicted),
+    }
