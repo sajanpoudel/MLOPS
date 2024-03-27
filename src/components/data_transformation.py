@@ -7,7 +7,7 @@ import pandas as pd
 from sklearn.compose import ColumnTransformer
 from sklearn.impute import SimpleImputer
 from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import OneHotEncoder, StandardScaler
+from sklearn.preprocessing import FunctionTransformer, OneHotEncoder, StandardScaler
 
 
 @dataclass
@@ -15,6 +15,12 @@ class DataTransformationConfig:
     """Which column is predicted."""
 
     target_column: str = "target"
+
+
+def none_to_nan(values):
+    """Turn None into NaN so text columns are imputed the same way on every pandas version."""
+    frame = pd.DataFrame(values).astype(object)
+    return frame.where(frame.notna(), np.nan)
 
 
 class DataTransformation:
@@ -39,6 +45,7 @@ class DataTransformation:
         )
         categorical_pipeline = Pipeline(
             [
+                ("missing", FunctionTransformer(none_to_nan)),
                 ("impute", SimpleImputer(strategy="most_frequent")),
                 ("encode", OneHotEncoder(handle_unknown="ignore", sparse_output=False)),
             ]
