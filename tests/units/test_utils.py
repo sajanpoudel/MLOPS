@@ -25,3 +25,9 @@ def test_custom_exception_reports_line_number():
         message = str(CustomException(e, sys))
     assert "division by zero" in message
     assert "line" in message
+
+
+def test_save_object_creates_missing_folders(tmp_path):
+    path = tmp_path / "a" / "b" / "obj.pkl"
+    save_object(str(path), [1, 2])
+    assert path.exists()
