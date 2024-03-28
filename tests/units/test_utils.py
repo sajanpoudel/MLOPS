@@ -31,3 +31,10 @@ def test_save_object_creates_missing_folders(tmp_path):
     path = tmp_path / "a" / "b" / "obj.pkl"
     save_object(str(path), [1, 2])
     assert path.exists()
+
+
+def test_objects_with_nested_data_round_trip(tmp_path):
+    data = {"scores": [0.1, 0.2], "meta": {"name": "model"}}
+    path = str(tmp_path / "nested.pkl")
+    save_object(path, data)
+    assert load_object(path) == data
