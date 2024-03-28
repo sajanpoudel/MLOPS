@@ -18,3 +18,7 @@ def test_mae_averages_the_absolute_errors():
 
 def test_rmse_penalises_large_errors_more():
     assert root_mean_squared_error([0, 0], [3, 4]) == pytest.approx(((9 + 16) / 2) ** 0.5)
+
+
+def test_r2_is_one_for_a_perfect_fit():
+    assert r2_score([1, 2, 3, 4], [1, 2, 3, 4]) == 1.0
