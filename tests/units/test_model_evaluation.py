@@ -22,3 +22,7 @@ def test_rmse_penalises_large_errors_more():
 
 def test_r2_is_one_for_a_perfect_fit():
     assert r2_score([1, 2, 3, 4], [1, 2, 3, 4]) == 1.0
+
+
+def test_r2_is_zero_when_predicting_the_mean():
+    assert r2_score([1, 2, 3], [2, 2, 2]) == pytest.approx(0.0)
