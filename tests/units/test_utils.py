@@ -38,3 +38,8 @@ def test_objects_with_nested_data_round_trip(tmp_path):
     path = str(tmp_path / "nested.pkl")
     save_object(path, data)
     assert load_object(path) == data
+
+
+def test_save_object_failure_raises_custom_exception():
+    with pytest.raises(CustomException):
+        save_object("/proc/not-writable/obj.pkl", object())
