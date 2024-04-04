@@ -43,3 +43,10 @@ def test_objects_with_nested_data_round_trip(tmp_path):
 def test_save_object_failure_raises_custom_exception():
     with pytest.raises(CustomException):
         save_object("/proc/not-writable/obj.pkl", object())
+
+
+def test_custom_exception_keeps_the_original_message():
+    try:
+        raise ValueError("bad value")
+    except ValueError as e:
+        assert "bad value" in str(CustomException(e, sys))
