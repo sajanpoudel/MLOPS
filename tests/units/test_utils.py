@@ -50,3 +50,10 @@ def test_custom_exception_keeps_the_original_message():
         raise ValueError("bad value")
     except ValueError as e:
         assert "bad value" in str(CustomException(e, sys))
+
+
+def test_custom_exception_names_this_file():
+    try:
+        raise RuntimeError("boom")
+    except RuntimeError as e:
+        assert "test_utils.py" in str(CustomException(e, sys))
