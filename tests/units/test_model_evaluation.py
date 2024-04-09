@@ -26,3 +26,7 @@ def test_r2_is_one_for_a_perfect_fit():
 
 def test_r2_is_zero_when_predicting_the_mean():
     assert r2_score([1, 2, 3], [2, 2, 2]) == pytest.approx(0.0)
+
+
+def test_r2_can_be_negative_for_bad_models():
+    assert r2_score([1, 2, 3], [3, 2, 1]) < 0
