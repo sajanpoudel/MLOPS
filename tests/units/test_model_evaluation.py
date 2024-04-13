@@ -30,3 +30,8 @@ def test_r2_is_zero_when_predicting_the_mean():
 
 def test_r2_can_be_negative_for_bad_models():
     assert r2_score([1, 2, 3], [3, 2, 1]) < 0
+
+
+def test_r2_of_constant_targets():
+    assert r2_score([5, 5], [5, 5]) == 1.0
+    assert r2_score([5, 5], [4, 6]) == 0.0
