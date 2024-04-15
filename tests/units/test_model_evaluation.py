@@ -35,3 +35,8 @@ def test_r2_can_be_negative_for_bad_models():
 def test_r2_of_constant_targets():
     assert r2_score([5, 5], [5, 5]) == 1.0
     assert r2_score([5, 5], [4, 6]) == 0.0
+
+
+def test_metrics_reject_different_lengths():
+    with pytest.raises(ValueError):
+        mean_absolute_error([1, 2], [1])
