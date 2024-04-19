@@ -40,3 +40,8 @@ def test_r2_of_constant_targets():
 def test_metrics_reject_different_lengths():
     with pytest.raises(ValueError):
         mean_absolute_error([1, 2], [1])
+
+
+def test_metrics_reject_empty_input():
+    with pytest.raises(ValueError):
+        r2_score([], [])
