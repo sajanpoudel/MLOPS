@@ -45,3 +45,9 @@ def test_metrics_reject_different_lengths():
 def test_metrics_reject_empty_input():
     with pytest.raises(ValueError):
         r2_score([], [])
+
+
+def test_evaluate_returns_all_metrics():
+    result = evaluate([1, 2, 3], [1, 2, 4])
+    assert set(result) == {"mae", "rmse", "r2"}
+    assert result["mae"] == pytest.approx(1 / 3)
