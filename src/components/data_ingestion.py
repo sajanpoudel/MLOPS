@@ -28,3 +28,14 @@ class DataIngestion:
         shuffled = frame.sample(frac=1, random_state=self.config.random_state).reset_index(drop=True)
         test_rows = max(1, int(round(len(shuffled) * self.config.test_size)))
         return shuffled.iloc[test_rows:].reset_index(drop=True), shuffled.iloc[:test_rows]
+
+
+    def ingest(self, source_path: str):
+        """Read source_path, save the raw copy and both splits, and return their paths."""
+        frame = pd.read_csv(source_path)
+        os.makedirs(os.path.dirname(self.config.raw_data_path) or ".", exist_ok=True)
+        frame.to_csv(self.config.raw_data_path, index=False)
+        train, test = self.split(frame)
+        train.to_csv(self.config.train_data_path, index=False)
+        test.to_csv(self.config.test_data_path, index=False)
+        return self.config.train_data_path, self.config.test_data_path
