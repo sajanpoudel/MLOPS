@@ -20,3 +20,8 @@ def source(tmp_path):
     path = tmp_path / "source.csv"
     pd.DataFrame({"x": range(10), "y": range(10, 20)}).to_csv(path, index=False)
     return str(path)
+
+
+def test_split_sizes_follow_test_size(config):
+    train, test = DataIngestion(config).split(pd.DataFrame({"a": range(10)}))
+    assert (len(train), len(test)) == (8, 2)
