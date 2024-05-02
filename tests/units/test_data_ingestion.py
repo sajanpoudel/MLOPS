@@ -25,3 +25,8 @@ def source(tmp_path):
 def test_split_sizes_follow_test_size(config):
     train, test = DataIngestion(config).split(pd.DataFrame({"a": range(10)}))
     assert (len(train), len(test)) == (8, 2)
+
+
+def test_split_keeps_every_row_once(config):
+    train, test = DataIngestion(config).split(pd.DataFrame({"a": range(10)}))
+    assert sorted(list(train["a"]) + list(test["a"])) == list(range(10))
