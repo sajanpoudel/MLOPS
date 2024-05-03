@@ -30,3 +30,10 @@ def test_split_sizes_follow_test_size(config):
 def test_split_keeps_every_row_once(config):
     train, test = DataIngestion(config).split(pd.DataFrame({"a": range(10)}))
     assert sorted(list(train["a"]) + list(test["a"])) == list(range(10))
+
+
+def test_split_is_repeatable(config):
+    frame = pd.DataFrame({"a": range(20)})
+    first = DataIngestion(config).split(frame)
+    second = DataIngestion(config).split(frame)
+    assert list(first[1]["a"]) == list(second[1]["a"])
