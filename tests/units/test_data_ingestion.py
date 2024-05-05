@@ -37,3 +37,9 @@ def test_split_is_repeatable(config):
     first = DataIngestion(config).split(frame)
     second = DataIngestion(config).split(frame)
     assert list(first[1]["a"]) == list(second[1]["a"])
+
+
+def test_split_always_returns_a_test_row(config):
+    config.test_size = 0.0
+    _, test = DataIngestion(config).split(pd.DataFrame({"a": range(5)}))
+    assert len(test) == 1
