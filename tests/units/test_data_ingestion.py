@@ -43,3 +43,9 @@ def test_split_always_returns_a_test_row(config):
     config.test_size = 0.0
     _, test = DataIngestion(config).split(pd.DataFrame({"a": range(5)}))
     assert len(test) == 1
+
+
+def test_ingest_writes_all_three_files(config, source):
+    train_path, test_path = DataIngestion(config).ingest(source)
+    assert os.path.exists(config.raw_data_path)
+    assert os.path.exists(train_path) and os.path.exists(test_path)
