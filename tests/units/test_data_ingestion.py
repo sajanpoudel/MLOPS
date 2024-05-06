@@ -49,3 +49,8 @@ def test_ingest_writes_all_three_files(config, source):
     train_path, test_path = DataIngestion(config).ingest(source)
     assert os.path.exists(config.raw_data_path)
     assert os.path.exists(train_path) and os.path.exists(test_path)
+
+
+def test_ingested_files_can_be_read_back(config, source):
+    train_path, test_path = DataIngestion(config).ingest(source)
+    assert len(pd.read_csv(train_path)) + len(pd.read_csv(test_path)) == 10
