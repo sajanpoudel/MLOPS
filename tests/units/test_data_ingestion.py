@@ -54,3 +54,8 @@ def test_ingest_writes_all_three_files(config, source):
 def test_ingested_files_can_be_read_back(config, source):
     train_path, test_path = DataIngestion(config).ingest(source)
     assert len(pd.read_csv(train_path)) + len(pd.read_csv(test_path)) == 10
+
+
+def test_missing_source_file_raises(config, tmp_path):
+    with pytest.raises(FileNotFoundError):
+        DataIngestion(config).ingest(str(tmp_path / "nope.csv"))
