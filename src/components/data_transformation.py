@@ -8,3 +8,10 @@ from sklearn.compose import ColumnTransformer
 from sklearn.impute import SimpleImputer
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
+
+
+@dataclass
+class DataTransformationConfig:
+    """Which column is predicted."""
+
+    target_column: str = "target"
