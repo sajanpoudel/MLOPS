@@ -29,3 +29,20 @@ class DataTransformation:
         numeric = list(features.select_dtypes(include="number").columns)
         categorical = [c for c in features.columns if c not in numeric]
         return numeric, categorical
+
+
+    def build_preprocessor(self, frame: pd.DataFrame) -> ColumnTransformer:
+        """A ColumnTransformer: median + scaling for numbers, most frequent + one hot for text."""
+        numeric, categorical = self.split_columns(frame)
+        numeric_pipeline = Pipeline(
+            [("impute", SimpleImputer(strategy="median")), ("scale", StandardScaler())]
+        )
+        categorical_pipeline = Pipeline(
+            [
+                ("impute", SimpleImputer(strategy="most_frequent")),
+                ("encode", OneHotEncoder(handle_unknown="ignore", sparse_output=False)),
+            ]
+        )
+        return ColumnTransformer(
+            [("numeric", numeric_pipeline, numeric), ("categorical", categorical_pipeline, categorical)]
+        )
