@@ -46,3 +46,12 @@ class DataTransformation:
         return ColumnTransformer(
             [("numeric", numeric_pipeline, numeric), ("categorical", categorical_pipeline, categorical)]
         )
+
+
+    def fit_transform(self, train: pd.DataFrame, test: pd.DataFrame):
+        """Fit the preprocessor on train and return (X_train, y_train, X_test, y_test, preprocessor)."""
+        target = self.config.target_column
+        preprocessor = self.build_preprocessor(train)
+        x_train = preprocessor.fit_transform(train.drop(columns=[target]))
+        x_test = preprocessor.transform(test.drop(columns=[target]))
+        return x_train, np.asarray(train[target]), x_test, np.asarray(test[target]), preprocessor
