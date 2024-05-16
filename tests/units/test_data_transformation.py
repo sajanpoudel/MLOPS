@@ -20,3 +20,8 @@ def test_split_columns_separates_numbers_from_text(frame):
     numeric, categorical = DataTransformation().split_columns(frame)
     assert numeric == ["size"]
     assert categorical == ["city"]
+
+
+def test_split_columns_ignores_the_target(frame):
+    numeric, _ = DataTransformation().split_columns(frame)
+    assert "target" not in numeric
