@@ -14,3 +14,9 @@ def frame():
             "target": [10, 20, 30, 40],
         }
     )
+
+
+def test_split_columns_separates_numbers_from_text(frame):
+    numeric, categorical = DataTransformation().split_columns(frame)
+    assert numeric == ["size"]
+    assert categorical == ["city"]
