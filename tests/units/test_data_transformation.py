@@ -25,3 +25,9 @@ def test_split_columns_separates_numbers_from_text(frame):
 def test_split_columns_ignores_the_target(frame):
     numeric, _ = DataTransformation().split_columns(frame)
     assert "target" not in numeric
+
+
+def test_custom_target_column(frame):
+    renamed = frame.rename(columns={"target": "price"})
+    numeric, _ = DataTransformation(DataTransformationConfig("price")).split_columns(renamed)
+    assert numeric == ["size"]
