@@ -31,3 +31,10 @@ def test_custom_target_column(frame):
     renamed = frame.rename(columns={"target": "price"})
     numeric, _ = DataTransformation(DataTransformationConfig("price")).split_columns(renamed)
     assert numeric == ["size"]
+
+
+def test_preprocessor_handles_missing_values(frame):
+    transformer = DataTransformation()
+    preprocessor = transformer.build_preprocessor(frame)
+    result = preprocessor.fit_transform(frame.drop(columns=["target"]))
+    assert not np.isnan(result).any()
