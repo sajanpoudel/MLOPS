@@ -44,3 +44,9 @@ def test_categories_become_one_hot_columns(frame):
     preprocessor = DataTransformation().build_preprocessor(frame)
     result = preprocessor.fit_transform(frame.drop(columns=["target"]))
     assert result.shape == (4, 3)  # one scaled number and two cities
+
+
+def test_numbers_are_scaled_to_zero_mean(frame):
+    preprocessor = DataTransformation().build_preprocessor(frame)
+    result = preprocessor.fit_transform(frame.drop(columns=["target"]))
+    assert result[:, 0].mean() == pytest.approx(0.0, abs=1e-9)
