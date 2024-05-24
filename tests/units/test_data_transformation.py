@@ -38,3 +38,9 @@ def test_preprocessor_handles_missing_values(frame):
     preprocessor = transformer.build_preprocessor(frame)
     result = preprocessor.fit_transform(frame.drop(columns=["target"]))
     assert not np.isnan(result).any()
+
+
+def test_categories_become_one_hot_columns(frame):
+    preprocessor = DataTransformation().build_preprocessor(frame)
+    result = preprocessor.fit_transform(frame.drop(columns=["target"]))
+    assert result.shape == (4, 3)  # one scaled number and two cities
