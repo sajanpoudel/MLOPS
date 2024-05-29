@@ -57,3 +57,9 @@ def test_fit_transform_returns_matching_shapes(frame):
     assert x_train.shape[0] == len(y_train) == 4
     assert x_test.shape[0] == len(y_test) == 2
     assert x_train.shape[1] == x_test.shape[1]
+
+
+def test_unseen_categories_in_test_data_are_ignored(frame):
+    test = pd.DataFrame({"size": [3.0], "city": ["new city"], "target": [0]})
+    _, _, x_test, _, _ = DataTransformation().fit_transform(frame, test)
+    assert x_test.shape == (1, 3)
