@@ -50,3 +50,10 @@ def test_numbers_are_scaled_to_zero_mean(frame):
     preprocessor = DataTransformation().build_preprocessor(frame)
     result = preprocessor.fit_transform(frame.drop(columns=["target"]))
     assert result[:, 0].mean() == pytest.approx(0.0, abs=1e-9)
+
+
+def test_fit_transform_returns_matching_shapes(frame):
+    x_train, y_train, x_test, y_test, _ = DataTransformation().fit_transform(frame, frame.iloc[:2])
+    assert x_train.shape[0] == len(y_train) == 4
+    assert x_test.shape[0] == len(y_test) == 2
+    assert x_train.shape[1] == x_test.shape[1]
