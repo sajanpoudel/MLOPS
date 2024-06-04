@@ -10,3 +10,7 @@ def data():
     x = rng.rand(60, 2)
     y = 3 * x[:, 0] + 2 * x[:, 1] + 1
     return x[:45], y[:45], x[45:], y[45:]
+
+
+def test_candidate_models_are_named():
+    assert set(candidate_models()) == {"linear", "ridge", "forest"}
