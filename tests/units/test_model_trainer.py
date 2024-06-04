@@ -14,3 +14,9 @@ def data():
 
 def test_candidate_models_are_named():
     assert set(candidate_models()) == {"linear", "ridge", "forest"}
+
+
+def test_best_model_is_one_of_the_candidates(data):
+    name, model, scores = train_best_model(*data)
+    assert name in scores
+    assert hasattr(model, "predict")
