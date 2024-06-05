@@ -20,3 +20,8 @@ def test_best_model_is_one_of_the_candidates(data):
     name, model, scores = train_best_model(*data)
     assert name in scores
     assert hasattr(model, "predict")
+
+
+def test_every_candidate_gets_a_score(data):
+    _, _, scores = train_best_model(*data)
+    assert set(scores) == {"linear", "ridge", "forest"}
