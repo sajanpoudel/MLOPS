@@ -25,3 +25,8 @@ def test_best_model_is_one_of_the_candidates(data):
 def test_every_candidate_gets_a_score(data):
     _, _, scores = train_best_model(*data)
     assert set(scores) == {"linear", "ridge", "forest"}
+
+
+def test_a_linear_target_is_fitted_almost_perfectly(data):
+    name, _, scores = train_best_model(*data)
+    assert scores[name] > 0.95
