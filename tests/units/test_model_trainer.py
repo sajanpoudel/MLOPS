@@ -30,3 +30,8 @@ def test_every_candidate_gets_a_score(data):
 def test_a_linear_target_is_fitted_almost_perfectly(data):
     name, _, scores = train_best_model(*data)
     assert scores[name] > 0.95
+
+
+def test_the_best_name_has_the_highest_score(data):
+    name, _, scores = train_best_model(*data)
+    assert scores[name] == max(scores.values())
