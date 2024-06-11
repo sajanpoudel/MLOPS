@@ -35,3 +35,11 @@ def test_a_linear_target_is_fitted_almost_perfectly(data):
 def test_the_best_name_has_the_highest_score(data):
     name, _, scores = train_best_model(*data)
     assert scores[name] == max(scores.values())
+
+
+def test_custom_models_can_be_compared(data):
+    from sklearn.linear_model import LinearRegression
+
+    name, _, scores = train_best_model(*data, models={"only": LinearRegression()})
+    assert name == "only"
+    assert list(scores) == ["only"]
