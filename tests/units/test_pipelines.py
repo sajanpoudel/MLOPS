@@ -22,3 +22,8 @@ def trained(tmp_path):
     model_path = str(tmp_path / "model.pkl")
     metrics = run_training(str(source), "price", model_path, ingestion=DataIngestion(config))
     return metrics, model_path
+
+
+def test_training_reports_the_metrics_and_the_model(trained):
+    metrics, _ = trained
+    assert set(metrics) == {"mae", "rmse", "r2", "model"}
