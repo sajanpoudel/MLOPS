@@ -32,3 +32,9 @@ def test_training_reports_the_metrics_and_the_model(trained):
 def test_the_trained_model_fits_the_data_well(trained):
     metrics, _ = trained
     assert metrics["r2"] > 0.9
+
+
+def test_predict_returns_one_value_per_row(trained):
+    _, model_path = trained
+    rows = [{"a": 0.5, "b": 0.5, "kind": "x"}, {"a": 0.1, "b": 0.9, "kind": "y"}]
+    assert len(predict(model_path, rows)) == 2
