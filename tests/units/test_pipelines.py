@@ -27,3 +27,8 @@ def trained(tmp_path):
 def test_training_reports_the_metrics_and_the_model(trained):
     metrics, _ = trained
     assert set(metrics) == {"mae", "rmse", "r2", "model"}
+
+
+def test_the_trained_model_fits_the_data_well(trained):
+    metrics, _ = trained
+    assert metrics["r2"] > 0.9
