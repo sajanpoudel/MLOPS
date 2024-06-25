@@ -44,3 +44,8 @@ def test_predictions_follow_the_pattern_in_the_data(trained):
     _, model_path = trained
     low, high = predict(model_path, [{"a": 0.0, "b": 0.0, "kind": "y"}, {"a": 1.0, "b": 1.0, "kind": "x"}])
     assert high > low
+
+
+def test_predict_without_a_model_file_raises(tmp_path):
+    with pytest.raises(FileNotFoundError):
+        predict(str(tmp_path / "missing.pkl"), [{"a": 1}])
