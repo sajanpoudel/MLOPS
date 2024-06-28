@@ -23,3 +23,17 @@ template.py     creates any missing file from the layout above
 source env/bin/activate
 pytest
 ```
+
+## Training a model
+
+```python
+from src.pipeline.training_pipeline import run_training
+from src.pipeline.prediction_pipeline import predict
+
+metrics = run_training("data.csv", target_column="price", model_path="artifacts/model.pkl")
+print(metrics)   # {'mae': ..., 'rmse': ..., 'r2': ..., 'model': 'forest'}
+
+predict("artifacts/model.pkl", [{"size": 120, "city": "a"}])
+```
+
+The pipeline reads the csv, splits it 80/20, imputes and scales numbers, one hot encodes text, compares a linear model, a ridge model and a random forest, and saves the best one with its preprocessor.
